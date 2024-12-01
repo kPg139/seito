@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生徒情報</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #;
+            margin: 0;
+            padding: 0.1px;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #495057;
+        }
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="date"]:focus, textarea:focus {
+            border-color: #80bdff;
+            outline: none;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .data-item {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        #imagePreview {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>生徒情報</h1>
+        <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日付タグとテキストボックスの表</title>
+</head>
+<h3>生徒氏名：中俣博幸さん</h3>
+<body>
+    <table border="1">
+        <tr>
+            <th>日付</th>
+            <th>コメント</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="date" id="date1" name="date1">
+            </td>
+            <td>
+                <input type="text" id="text1" name="text1">
+            </td>
+        </tr>
+        </tr>
+        <!-- 追加の行もここに入れられます -->
+    </table>
+</body>
+</html>
+        <p></p>
+        <form id="studentForm">
+            <label for="studentName">コース:</label>
+            <input type="text" id="studentName" required>
+<p></p>
+            <label for="teachingPolicy">授業方針:</label>
+            <textarea id="teachingPolicy" required></textarea>
+<p></p>
+            <label for="lastClassDate">授業実施日:</label>
+            <input type="date" id="lastClassDate" required>
+<p></p>
+            <label for="reflectionSheet">振り返りシート (画像を選択):</label>
+            <input type="file" id="reflectionSheet" accept="image/*">
+            <div id="imagePreview">
+                <img id="previewImg" src="" alt="画像プレビュー">
+            </div>
+<p></p>
+            <label for="lessonComment">授業コメント:</label>
+            <textarea id="lessonComment" required></textarea>
+<p></p>
+             <label for="lessonComment">よかったところ:</label>
+            <textarea id="lessonComment" required></textarea>
+<p></p>
+             <label for="lessonComment">悪かったところ:</label>
+            <textarea id="lessonComment" required></textarea>
+            <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>授業情報入力 - 教師用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, textarea {
+            width: 300px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="lessonInfo" rows="4" placeholder="生徒送信用の今日の日付と授業コメントを入力"></textarea><br>
+    <button onclick="sendLessonInfo()">送信</button>
+
+    <script>
+        function sendLessonInfo() {
+            const lessonInfo = document.getElementById("lessonInfo").value;
+
+            // ここではLocalStorageを使用してデータを保存します。
+            localStorage.setItem("lessonInfo", lessonInfo);
+            alert("授業情報が生徒に送信されました！");
+        }
+    </script>
+</body>
+</html>
+
+            <button type="submit">登録</button>
+        </form>
+
+        <div class="stored-data" id="storedData">
+            <h3>過去の授業</h3>
+        </div>
+    </div>
+
+    <script>
+        // ページの読み込み時にデータを表示
+        window.onload = function() {
+            const storedData = JSON.parse(localStorage.getItem('studentData')) || [];
+            storedData.forEach(data => {
+                displayData(data);
+            });
+        };
+
+        document.getElementById('reflectionSheet').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const imgPreview = document.getElementById('previewImg');
+            const imagePreviewContainer = document.getElementById('imagePreview');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imgPreview.src = e.target.result;
+imagePreviewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imagePreviewContainer.style.display = 'none';
+            }
+        });
+
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const studentName = document.getElementById('studentName').value;
+            const teachingPolicy = document.getElementById('teachingPolicy').value;
+            const lastClassDate = document.getElementById('lastClassDate').value;
+            const lessonComment = document.getElementById('lessonComment').value;
+
+            const reflectionSheet = document.getElementById('reflectionSheet').files[0];
+            const reflectionSheetUrl = reflectionSheet ? URL.createObjectURL(reflectionSheet) : '';
+
+            const data = {
+                name: studentName,
+                policy: teachingPolicy,
+                date: lastClassDate,
+                comment: lessonComment,
+                reflectionSheet: reflectionSheetUrl
+            };
+
+            // データをローカルストレージに保存
+            const storedData = JSON.parse(localStorage.getItem('studentData')) || [];
+            storedData.push(data);
+            localStorage.setItem('studentData', JSON.stringify(storedData));
+
+            // 入力データを表示
+            displayData(data);
+
+            // フォームをリセット
+            document.getElementById('studentForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        });
+
+        function displayData(data) {
+            const storedDataDiv = document.getElementById('storedData');
+            const dataItem = document.createElement('div');
+            dataItem.classList.add('data-item');
+
+            dataItem.innerHTML = `
+                <strong>コース:</strong> ${data.name} <br>
+                <strong>授業方針:</strong> ${data.policy} <br>
+                <strong>前回の授業日:</strong> ${data.date} <br>
+                <strong>授業コメント:</strong> ${data.reflectionSheet ? `<strong>振り返りシート:</strong> <img src="${data.reflectionSheet}" alt="振り返りシート">` : ''}
+            `;
+            
+            storedDataDiv.appendChild(dataItem);
+        }
+    </script>
+</body>
+</html>
